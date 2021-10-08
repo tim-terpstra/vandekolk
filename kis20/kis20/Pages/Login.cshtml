@@ -1,0 +1,19 @@
+﻿@page
+@model IndexModel
+@{
+    /* als je een een template wilt gebruiken voor alle paginas kan dat hier en dan is testlayout de algemene layout*/
+    ViewData["Title"] = "Login page";
+    Layout = "";
+}
+<div class="text-center" action="">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="uname" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+
+    <button type="submit">Login</button>
+</div>
+<div class="container">
+    <a href="../index" type="button">Home</a>
+</div>
