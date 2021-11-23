@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Tim\\Desktop\\vandekolk\\kis20\\kis20\\kis20.csproj": {}
+    "C:\\KIS2.0\\kis20\\kis20\\kis20.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Tim\\Desktop\\vandekolk\\kis20\\kis20\\kis20.csproj": {
+    "C:\\KIS2.0\\kis20\\kis20\\kis20.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Tim\\Desktop\\vandekolk\\kis20\\kis20\\kis20.csproj",
+        "projectUniqueName": "C:\\KIS2.0\\kis20\\kis20\\kis20.csproj",
         "projectName": "kis20",
-        "projectPath": "C:\\Users\\Tim\\Desktop\\vandekolk\\kis20\\kis20\\kis20.csproj",
-        "packagesPath": "C:\\Users\\Tim\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Tim\\Desktop\\vandekolk\\kis20\\kis20\\obj\\",
+        "projectPath": "C:\\KIS2.0\\kis20\\kis20\\kis20.csproj",
+        "packagesPath": "C:\\Users\\robbi\\.nuget\\packages\\",
+        "outputPath": "C:\\KIS2.0\\kis20\\kis20\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Tim\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\robbi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -57,7 +57,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.209\\RuntimeIdentifierGraph.json"
         }
       }
     }
