@@ -5,6 +5,33 @@
     ViewData["Title"] = "Login page";
     Layout = "";
 }
-<div>
-    <a href="/">Home</a>
+<style>
+    body{
+        margin: 0;
+    }
+    .header {
+        background-color: rgb(0, 82, 69);
+        padding: 20px;
+        font-size: 35px;
+        color: white;
+        border-bottom: solid white;
+        margin: 0px;
+    }
+    div a{
+        color: white;
+        float: right;
+    }
+</style>
+<div class="header">
+    Projectenlijst
+    <a href="/">X</a>
+</div>
+<div class="header">
+    <label for="status">Status:</label>
+    <select name="status" id="status">
+        <option value="kies status">kies een status</option>
+        <option value="in calculatie">In calculatie</option>
+        <option value="in uitvoering">In voorbereiding</option>
+        <option value="gereed">Gereed</option>
+    </select>
 </div>
