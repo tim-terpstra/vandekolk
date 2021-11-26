@@ -21,17 +21,90 @@
         color: white;
         float: right;
     }
+    table {
+        background: #f5f5f5;
+        border-collapse: separate;
+        font-size: 12px;
+        line-height: 24px;
+        margin: 1%;
+        text-align: left;
+        width: 95%;
+    }
+    th {
+        background: rgb(0, 82, 69);
+        color: #fff;
+        font-weight: bold;
+        padding: 10px 15px;
+        position: relative;
+    }
+    td {
+        padding: 10px 15px;
+        position: relative;
+    }
 </style>
-<div class="header">
-    Projectenlijst
-    <a href="/">X</a>
-</div>
-<div class="header">
-    <label for="status">Status:</label>
-    <select name="status" id="status">
-        <option value="kies status">kies een status</option>
-        <option value="in calculatie">In calculatie</option>
-        <option value="in uitvoering">In voorbereiding</option>
-        <option value="gereed">Gereed</option>
-    </select>
-</div>
+<head>
+    <link rel="stylesheet" href="/css/site.css" type="text/css" />
+</head>
+<body>
+    <div class="header">
+        Projectenlijst
+        <a href="/">X</a>
+    </div>
+    <div class="header">
+        <label for="status">Status:</label>
+        <select name="status" id="status">
+            <option value="kies status">kies een status</option>
+            <option value="in calculatie">In calculatie</option>
+            <option value="in uitvoering">In voorbereiding</option>
+            <option value="gereed">Gereed</option>
+        </select>
+    </div>
+    <div class="header">
+        <button id="add">Project aanmaken</button>
+        <button id="ask">Offerte aanvragen</button>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Project</th>
+                    <th>Adres</th>
+                    <th>Startdatum</th>
+                    <th>Einddatum</th>
+                    <th>Uitvoerder</th>
+                    <th>Werkvoorbereider</th>
+                    <th>Calculator</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>23 appartementen</td>
+                    <td>Eikenlaan</td>
+                    <td>04-05-2022</td>
+                    <td>04-06-2022</td>
+                    <td>Robbin</td>
+                    <td>Tim</td>
+                    <td>Sander</td>
+                </tr>
+                <tr>
+                    <td>23 appartementen</td>
+                    <td>Eikenlaan</td>
+                    <td>04-05-2022</td>
+                    <td>04-06-2022</td>
+                    <td>Robbin</td>
+                    <td>Tim</td>
+                    <td>Sander</td>
+                </tr>
+                <tr>
+                    <td>23 appartementen</td>
+                    <td>Eikenlaan</td>
+                    <td>04-05-2022</td>
+                    <td>04-06-2022</td>
+                    <td>Robbin</td>
+                    <td>Tim</td>
+                    <td>Sander</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
