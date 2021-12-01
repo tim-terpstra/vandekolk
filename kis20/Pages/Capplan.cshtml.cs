@@ -5,6 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using System.Data;
+using System.Data.SqlClient;
+using kis20.Business;
+
 
 namespace kis20.Pages
 {
@@ -17,13 +22,17 @@ namespace kis20.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-
+            var user = HttpContext.Session.GetString("user");
+            if (string.IsNullOrEmpty(user))
+            {
+                return Redirect("/Login");
+            }
+            return null;
         }
         public void OnYes()
         {
-            Console.WriteLine("aaa");
         }
     }
 }
