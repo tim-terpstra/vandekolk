@@ -7,16 +7,16 @@ namespace kis20.Business
 {
     public class LijstProject
     {
-        public string ProjectNaam { get; }
-        public string WerkAdres { get; }
-        public string StartDatum { get; }
-        public string EindDatum { get; }
-        public string Uitvoerder { get; }
-        public string WerkVoorbereider { get; }
-        public bool Wpi { get; }
+        public string ProjectNaam { get; set; }
+        public string WerkAdres { get; set; }
+        public DateTime StartDatum { get; set; }
+        public DateTime EindDatum { get; set; }
+        public int Uitvoerder { get; set; }
+        public int WerkVoorbereider { get; set; }
+        public bool Wpi { get; set; }
 
         
-        public LijstProject(string projectNaam, string werkAdres, string startDatum, string eindDatum, string uitvoerder, string werkVoorbereider, bool wpi)
+        public LijstProject(string projectNaam, string werkAdres, DateTime startDatum, DateTime eindDatum, int uitvoerder, int werkVoorbereider, bool wpi)
         {
             this.ProjectNaam = projectNaam;
             this.WerkAdres = werkAdres;

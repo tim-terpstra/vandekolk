@@ -6,16 +6,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using kis20.Business;
 
 namespace kis20.Pages
 {
     public class TrajectenModel : PageModel
     {
         private readonly ILogger<TrajectenModel> _logger;
+        public List<LijstProject> trajecten;
 
         public TrajectenModel(ILogger<TrajectenModel> logger)
         {
             _logger = logger;
+            trajecten = new Database().getTrajectenlijst();
         }
 
         public IActionResult OnGet()
@@ -28,7 +31,7 @@ namespace kis20.Pages
             }
             return null;
         }
-        public void OnYes()
+        public void OnPost()
         {
         }
     }
