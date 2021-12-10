@@ -1,4 +1,5 @@
 ﻿@page
+@using kis20.Business;
 @model TrajectenModel
 @{
     /* als je een een template wilt gebruiken voor alle paginas kan dat hier en dan is testlayout de algemene layout*/
@@ -60,7 +61,7 @@
         </select>
     </div>
     <div class="header">
-        <button id="add">Project aanmaken</button>
+        <button id="add">Traject aanmaken</button>
         <button id="ask">Offerte aanvragen</button>
     </div>
     <div>
@@ -73,37 +74,22 @@
                     <th>Einddatum</th>
                     <th>Uitvoerder</th>
                     <th>Werkvoorbereider</th>
-                    <th>Calculator</th>
+                    <th>WPI</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach (var project in Model.trajecten)
+                {
                 <tr>
-                    <td>23 appartementen</td>
-                    <td>Eikenlaan</td>
-                    <td>04-05-2022</td>
-                    <td>04-06-2022</td>
-                    <td>Robbin</td>
-                    <td>Tim</td>
-                    <td>Sander</td>
+                    <td>@project.ProjectNaam</td>
+                    <td>@project.WerkAdres</td>
+                    <td>@project.StartDatum</td>
+                    <td>@project.EindDatum</td>
+                    <td>@project.Uitvoerder</td>
+                    <td>@project.WerkVoorbereider</td>
+                    <td>@project.Wpi</td>
                 </tr>
-                <tr>
-                    <td>23 appartementen</td>
-                    <td>Eikenlaan</td>
-                    <td>04-05-2022</td>
-                    <td>04-06-2022</td>
-                    <td>Robbin</td>
-                    <td>Tim</td>
-                    <td>Sander</td>
-                </tr>
-                <tr>
-                    <td>23 appartementen</td>
-                    <td>Eikenlaan</td>
-                    <td>04-05-2022</td>
-                    <td>04-06-2022</td>
-                    <td>Robbin</td>
-                    <td>Tim</td>
-                    <td>Sander</td>
-                </tr>
+                }
             </tbody>
         </table>
     </div>
