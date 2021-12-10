@@ -10,18 +10,17 @@ namespace kis20.Business
 {
     public class Database
     {
+        public string ConnectionString { get; } = @"Data Source=SQL2019;Initial Catalog=kis21;User ID=robbintim;Password=Oplader7#";
+        public SqlConnection cnn { get; set; }
+        public string sql { get; set; } = "";
+        public SqlCommand command { get; set; }
+        public SqlDataReader dataReader { get; set; }
         //hier nog dingen aan meegeven zoals iets van database gegevends
-        
+
         public Gebruiker getuser(string naam)
         {
             var users = new List<Gebruiker>();
-            string connectionString;
-            SqlConnection cnn;
-            SqlCommand command;
-            SqlDataReader dataReader;
-            string sql, Output = "";
-            connectionString = @"Data Source=SQL2019;Initial Catalog=kis21;User ID=robbintim;Password=Oplader7#";
-            cnn = new SqlConnection(connectionString);
+            cnn = new SqlConnection(ConnectionString);
             cnn.Open();
             sql = $"Select * from Gebruiker where Inlognaam = '{naam}'";
             command = new SqlCommand(sql, cnn);
@@ -33,18 +32,12 @@ namespace kis20.Business
             if (users.Count == 0) return null;
             //hier moet ook nog error handeling bijv als users langer is dan 1 dan moet de gebruiker door woorden gestuurd naar een error pagina
             return users[0];
-        }
+    }
 
         public List<LijstProject> getTrajectenlijst()
         {
             var trajecten = new List<LijstProject>();
-            string connectionString;
-            SqlConnection cnn;
-            SqlCommand command;
-            SqlDataReader dataReader;
-            string sql, Output = "";
-            connectionString = @"Data Source=SQL2019;Initial Catalog=kis21;User ID=robbintim;Password=Oplader7#";
-            cnn = new SqlConnection(connectionString);
+            cnn = new SqlConnection(ConnectionString);
             cnn.Open();
             sql = $"select ProjectNaam, ProjectPlaats, WerkStart, WerkEind, Uitvoerder, Werkvoorbereider, OpnemenWPI from Project"; 
             command = new SqlCommand(sql, cnn);
