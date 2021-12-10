@@ -13,7 +13,7 @@ namespace kis20.Pages
     public class TrajectenModel : PageModel
     {
         private readonly ILogger<TrajectenModel> _logger;
-        public List<LijstProject> trajecten;
+        public List<LijstTraject> trajecten;
 
         public TrajectenModel(ILogger<TrajectenModel> logger)
         {

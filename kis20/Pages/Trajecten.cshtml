@@ -1,9 +1,8 @@
 ﻿@page
-@using kis20.Business;
 @model TrajectenModel
 @{
     /* als je een een template wilt gebruiken voor alle paginas kan dat hier en dan is testlayout de algemene layout*/
-    ViewData["Title"] = "Login page";
+    ViewData["Title"] = "trajecten";
     Layout = "";
 }
 <style>
@@ -68,26 +67,36 @@
         <table>
             <thead>
                 <tr>
+                    <th>Projectnummer</th>
+                    <th>Calculatienummer</th>
                     <th>Project</th>
                     <th>Adres</th>
-                    <th>Startdatum</th>
-                    <th>Einddatum</th>
-                    <th>Uitvoerder</th>
-                    <th>Werkvoorbereider</th>
-                    <th>WPI</th>
+                    <th>Opdrachtgever</th>
+                    <th>Soort</th>
+                    <th>AanvraagDatum</th>
+                    <th>AanbodDatum</th>
+                    <th>GereedDatum</th>
+                    <th>Calculator</th>
+                    <th>Status</th>
+                    <th>Gereed</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var project in Model.trajecten)
+                @foreach (var traject in Model.trajecten)
                 {
                 <tr>
-                    <td>@project.ProjectNaam</td>
-                    <td>@project.WerkAdres</td>
-                    <td>@project.StartDatum</td>
-                    <td>@project.EindDatum</td>
-                    <td>@project.Uitvoerder</td>
-                    <td>@project.WerkVoorbereider</td>
-                    <td>@project.Wpi</td>
+                    <td>@traject.ProjectNummer</td>
+                    <td>@traject.CalculatieNummer</td>
+                    <td>@traject.ProjectNaam</td>
+                    <td>@traject.WerkAdres</td>
+                    <td>@traject.Opdrachtgever</td>
+                    <td>@traject.Soort</td>
+                    <td>@traject.AanvraagDatum</td>
+                    <td>@traject.AanbodDatum</td>
+                    <td>@traject.GereedDatum</td>
+                    <td>@traject.Calculator</td>
+                    <td>@traject.Status</td>
+                    <td>@traject.Gereed</td>
                 </tr>
                 }
             </tbody>

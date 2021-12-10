@@ -2,7 +2,7 @@
 @model ProjectenModel
 @{
     /* als je een een template wilt gebruiken voor alle paginas kan dat hier en dan is testlayout de algemene layout*/
-    ViewData["Title"] = "Login page";
+    ViewData["Title"] = "projecten";
     Layout = "";
 }
 <style>
@@ -67,43 +67,32 @@
         <table>
             <thead>
                 <tr>
+                    <th>Projectnummer</th>
                     <th>Project</th>
                     <th>Adres</th>
+                    <th>Opdrachtgever</th>
                     <th>Startdatum</th>
                     <th>Einddatum</th>
                     <th>Uitvoerder</th>
                     <th>Werkvoorbereider</th>
-                    <th>Calculator</th>
+                    <th>WPI</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach (var project in Model.projecten)
+                {
                 <tr>
-                    <td>23 appartementen</td>
-                    <td>Eikenlaan</td>
-                    <td>04-05-2022</td>
-                    <td>04-06-2022</td>
-                    <td>Robbin</td>
-                    <td>Tim</td>
-                    <td>Sander</td>
+                    <td>@project.ProjectNummer</td>
+                    <td>@project.ProjectNaam</td>
+                    <td>@project.WerkAdres</td>
+                    <td>@project.Opdrachtgever</td>
+                    <td>@project.StartDatum</td>
+                    <td>@project.EindDatum</td>
+                    <td>@project.Uitvoerder</td>
+                    <td>@project.WerkVoorbereider</td>
+                    <td>@project.Wpi</td>
                 </tr>
-                <tr>
-                    <td>23 appartementen</td>
-                    <td>Eikenlaan</td>
-                    <td>04-05-2022</td>
-                    <td>04-06-2022</td>
-                    <td>Robbin</td>
-                    <td>Tim</td>
-                    <td>Sander</td>
-                </tr>
-                <tr>
-                    <td>23 appartementen</td>
-                    <td>Eikenlaan</td>
-                    <td>04-05-2022</td>
-                    <td>04-06-2022</td>
-                    <td>Robbin</td>
-                    <td>Tim</td>
-                    <td>Sander</td>
-                </tr>
+                }
             </tbody>
         </table>
     </div>
