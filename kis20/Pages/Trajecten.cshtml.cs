@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace kis20.Pages
 {
-    public class IndexModel : PageModel
+    public class TrajectenModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly ILogger<TrajectenModel> _logger;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public TrajectenModel(ILogger<TrajectenModel> logger)
         {
             _logger = logger;
         }
@@ -30,7 +30,6 @@ namespace kis20.Pages
         }
         public void OnYes()
         {
-            Console.WriteLine("aaa");
         }
     }
 }

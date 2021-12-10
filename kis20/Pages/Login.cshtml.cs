@@ -46,7 +46,7 @@ namespace kis20.Pages
             {
                 HttpContext.Session.SetString("user", username);
                 //hier later laten redirecten naar GOTO in cookies
-                return Redirect("/Projecten");
+                return Redirect("/");
 
             }
              //hier nog sessies maken met machtegingen
