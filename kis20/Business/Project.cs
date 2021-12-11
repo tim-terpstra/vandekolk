@@ -16,9 +16,10 @@ namespace kis20.Business
         public string Uitvoerder { get; set; }
         public string WerkVoorbereider { get; set; }
         public bool Wpi { get; set; }
+        public string Status { get; set; }
 
-        
-        public LijstProject(string projectNummer = null, string projectNaam = null, string werkAdres = null, string opdrachtgever = null, DateTime? startDatum = null, DateTime? eindDatum = null, string uitvoerder = null, string werkVoorbereider = null, bool wpi = false)
+
+        public LijstProject(string projectNummer = null, string projectNaam = null, string werkAdres = null, string opdrachtgever = null, DateTime? startDatum = null, DateTime? eindDatum = null, string uitvoerder = null, string werkVoorbereider = null, bool wpi = false, string status = null)
         {
             this.ProjectNummer = projectNummer;
             this.ProjectNaam = projectNaam;
@@ -29,6 +30,7 @@ namespace kis20.Business
             this.Uitvoerder = uitvoerder;
             this.WerkVoorbereider = werkVoorbereider;
             this.Wpi = wpi;
+            this.Status = status;
         }
 
     }

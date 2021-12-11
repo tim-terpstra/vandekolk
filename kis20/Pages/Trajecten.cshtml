@@ -6,21 +6,23 @@
     Layout = "";
 }
 <style>
-    body{
+    body {
         margin: 0;
     }
+
     .header {
         background-color: rgb(0, 82, 69);
         padding: 20px;
         font-size: 35px;
         color: white;
         border-bottom: solid white;
-        margin: 0px;
     }
-    div a{
+
+    div a {
         color: white;
         float: right;
     }
+
     table {
         background: #f5f5f5;
         border-collapse: separate;
@@ -30,38 +32,64 @@
         text-align: left;
         width: 95%;
     }
+
     th {
         background: rgb(0, 82, 69);
         color: #fff;
         font-weight: bold;
         padding: 10px 15px;
-        position: relative;
     }
+
     td {
         padding: 10px 15px;
-        position: relative;
+    }
+
+    table, th, td {
+        border: 1px solid #c1c1c1;
+        border-collapse: collapse;
+    }
+
+    tbody {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        height: 500px;
+        display: block;
+    }
+
+    thead {
+        display: table;
+        width: calc(100% - 17px);
+        table-layout: fixed;
+    }
+
+    tbody tr {
+        table-layout: fixed;
+        display: table;
+        width: 100%;
     }
 </style>
 <head>
     <link rel="stylesheet" href="/css/site.css" type="text/css" />
 </head>
 <body>
-    <div class="header">
-        Trajectenlijst
-        <a href="/">X</a>
-    </div>
-    <div class="header">
-        <label for="status">Status:</label>
-        <select name="status" id="status">
-            <option value="kies status">kies een status</option>
-            <option value="in calculatie">In calculatie</option>
-            <option value="in uitvoering">In voorbereiding</option>
-            <option value="gereed">Gereed</option>
-        </select>
-    </div>
-    <div class="header">
-        <button id="add">Traject aanmaken</button>
-        <button id="ask">Offerte aanvragen</button>
+    <div class="headers">
+        <div class="header">
+            Trajectenlijst
+            <a href="/">X</a>
+        </div>
+        <div class="header">
+            <label for="status">Status:</label>
+            <select name="status" id="status">
+                <option value="Aanvraag">Aanvraag</option>
+                <option value="In calculatie" selected="selected">In calculatie</option>
+                <option value="In uitvoering">In uitvoering</option>
+                <option value="Gereed">Gereed</option>
+            </select>
+        </div>
+        <div class="header">
+            <button id="add">Traject aanmaken</button>
+            <button id="ask">Offerte aanvragen</button>
+        </div>
     </div>
     <div>
         <table>
@@ -82,7 +110,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var traject in Model.trajecten)
+                @foreach (var traject in Model.trajecten.Where(x => x.Status == "In calculatie").ToList())
                 {
                 <tr>
                     <td>@traject.ProjectNummer</td>

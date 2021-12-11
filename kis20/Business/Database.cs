@@ -34,13 +34,12 @@ namespace kis20.Business
             //hier moet ook nog error handeling bijv als users langer is dan 1 dan moet de gebruiker door woorden gestuurd naar een error pagina
             return users[0];
     }
-
         public List<LijstProject> getProjectenlijst()
         {
             var projecten = new List<LijstProject>();
             cnn = new SqlConnection(ConnectionString);
             cnn.Open();
-            sql = $"select p.ProjectNummer,p.ProjectNaam,p.ProjectPlaats,CONCAT(Bedrijf.Bedrijf, CONCAT(CP.Voorletters,' ',CP.Achternaam)) as opdrachtgever, p.WerkStart ,p.WerkEind, CONCAT(Personeel.Voornaam, ' ', Personeel.Achternaam) as uitvoerder, CONCAT(Personeel.Voornaam, ' ', Personeel.Achternaam) as werkvoorbereider, p.OpnemenWPI from Project as p left join Personeel on p.Uitvoerder = Personeel.Id or p.Werkvoorbereider = Personeel.Id left join Bedrijf on p.OGBedrijf = Bedrijf.BedrijfID AND p.OGBedrijf != 1 left join CP on p.OGCP = CP.CPId";
+            sql = $"select p.ProjectNummer,p.ProjectNaam,p.ProjectPlaats,CONCAT(Bedrijf.Bedrijf, CONCAT(CP.Voorletters,' ',CP.Achternaam)) as opdrachtgever, p.WerkStart ,p.WerkEind, CONCAT(Personeel.Voornaam, ' ', Personeel.Achternaam) as uitvoerder, CONCAT(Personeel.Voornaam, ' ', Personeel.Achternaam) as werkvoorbereider, p.OpnemenWPI, ProjectStatus.ProjectStatus from Project as p left join Personeel on p.Uitvoerder = Personeel.Id or p.Werkvoorbereider = Personeel.Id left join Bedrijf on p.OGBedrijf = Bedrijf.BedrijfID AND p.OGBedrijf != 1 left join CP on p.OGCP = CP.CPId left join ProjectStatus on p.ProjectStatus = ProjectStatus.Id";
             command = new SqlCommand(sql, cnn);
             dataReader = command.ExecuteReader();
             while (dataReader.Read())
@@ -56,38 +55,6 @@ namespace kis20.Business
                 /*if (!dataReader.IsDBNull(dataReader.GetOrdinal("ProjectNummer")))
                 {
                     project.ProjectNummer = dataReader.GetString(0);
-                }
-                if (!dataReader.IsDBNull(dataReader.GetOrdinal("ProjectNaam")))
-                {
-                    project.ProjectNaam = dataReader.GetString(1);
-                }
-                if (!dataReader.IsDBNull(dataReader.GetOrdinal("ProjectPlaats")))
-                {
-                    project.WerkAdres = dataReader.GetString(2);
-                }
-                if (!dataReader.IsDBNull(dataReader.GetOrdinal("Opdrachtgever")))
-                {
-                    project.Opdrachtgever = dataReader.GetString(3);
-                }
-                if (!dataReader.IsDBNull(dataReader.GetOrdinal("WerkStart")))
-                {
-                    project.StartDatum = dataReader.GetDateTime(4);
-                }
-                if (!dataReader.IsDBNull(dataReader.GetOrdinal("WerkEind")))
-                {
-                    project.EindDatum = dataReader.GetDateTime(5);
-                }
-                if (!dataReader.IsDBNull(dataReader.GetOrdinal("Uitvoerder")))
-                {
-                    project.Uitvoerder = dataReader.GetString(6);
-                }
-                if (!dataReader.IsDBNull(dataReader.GetOrdinal("Werkvoorbereider")))
-                {
-                    project.WerkVoorbereider = dataReader.GetString(7);
-                }
-                if (!dataReader.IsDBNull(dataReader.GetOrdinal("OpnemenWPI")))
-                {
-                    project.Wpi = dataReader.GetBoolean(8);
                 }*/
                 projecten.Add(project);
             }
