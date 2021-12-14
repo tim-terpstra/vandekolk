@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using kis20.Business;
 using System.Data.SqlClient;
 using System.Data;
+using System.Reflection;
 
 namespace kis20.Business
 {
@@ -33,45 +34,52 @@ namespace kis20.Business
             //hier moet ook nog error handeling bijv als users langer is dan 1 dan moet de gebruiker door woorden gestuurd naar een error pagina
             return users[0];
     }
-
-        public List<LijstProject> getTrajectenlijst()
+        public List<LijstProject> getProjectenlijst()
         {
-            var trajecten = new List<LijstProject>();
+            var projecten = new List<LijstProject>();
             cnn = new SqlConnection(ConnectionString);
             cnn.Open();
-            sql = $"select ProjectNaam, ProjectPlaats, WerkStart, WerkEind, Uitvoerder, Werkvoorbereider, OpnemenWPI from Project"; 
+            sql = $"select p.ProjectNummer,p.ProjectNaam,p.ProjectPlaats,CONCAT(Bedrijf.Bedrijf, CONCAT(CP.Voorletters,' ',CP.Achternaam)) as opdrachtgever, p.WerkStart ,p.WerkEind, CONCAT(Personeel.Voornaam, ' ', Personeel.Achternaam) as uitvoerder, CONCAT(Personeel.Voornaam, ' ', Personeel.Achternaam) as werkvoorbereider, p.OpnemenWPI, ProjectStatus.ProjectStatus from Project as p left join Personeel on p.Uitvoerder = Personeel.Id or p.Werkvoorbereider = Personeel.Id left join Bedrijf on p.OGBedrijf = Bedrijf.BedrijfID AND p.OGBedrijf != 1 left join CP on p.OGCP = CP.CPId left join ProjectStatus on p.ProjectStatus = ProjectStatus.Id";
             command = new SqlCommand(sql, cnn);
             dataReader = command.ExecuteReader();
             while (dataReader.Read())
             {
-                LijstProject traject = new LijstProject(null, null, new DateTime(), new DateTime(), 0, 0, false);
-                if (!dataReader.IsDBNull(dataReader.GetOrdinal("ProjectNaam")))
+                LijstProject project = new LijstProject();
+                foreach (var (value, i) in project.GetType().GetProperties().Select((value, i) => (value, i)))
                 {
-                    traject.ProjectNaam = dataReader.GetString(0);
+                    if (!dataReader.IsDBNull(dataReader.GetName(i)))
+                    {
+                        value.SetValue(project, dataReader.GetValue(i));
+                    }
                 }
-                if (!dataReader.IsDBNull(dataReader.GetOrdinal("ProjectPlaats")))
+                /*if (!dataReader.IsDBNull(dataReader.GetOrdinal("ProjectNummer")))
                 {
-                    traject.WerkAdres = dataReader.GetString(1);
-                }
-                if (!dataReader.IsDBNull(dataReader.GetOrdinal("WerkStart")))
+                    project.ProjectNummer = dataReader.GetString(0);
+                }*/
+                projecten.Add(project);
+            }
+            if (projecten.Count == 0) return null;
+            //hier moet ook nog error handeling bijv als users langer is dan 1 dan moet de gebruiker door woorden gestuurd naar een error pagina
+            return projecten;
+
+        }
+        public List<LijstTraject> getTrajectenlijst()
+        {
+            var trajecten = new List<LijstTraject>();
+            cnn = new SqlConnection(ConnectionString);
+            cnn.Open();
+            sql = $"SELECT p.ProjectNummer, p.Calculator as Calcnummer, p.ProjectNaam, p.ProjectPlaats, CONCAT(Bedrijf.Bedrijf, CONCAT(CP.Voorletters,' ',CP.Achternaam)) as Opdrachtgever, ProjectStatus.ProjectStatus, p.AanvraagDatum, p.AanbiedingRetour, p.DatumCalculatieGereed, CONCAT(calc.Voornaam, ' ', calc.Achternaam) as Calculator, ProjectStatus.ProjectStatus, p.CalculatieGereed from Project as p left join Personeel as calc on p.Calculator = calc.Id left join Bedrijf on p.OGBedrijf = Bedrijf.BedrijfID AND p.OGBedrijf != 1 left join CP on p.OGCP = CP.CPId left join RelatieSoort on p.ProjectSoort = RelatieSoort.Id left join ProjectStatus on p.ProjectStatus = ProjectStatus.Id";
+            command = new SqlCommand(sql, cnn);
+            dataReader = command.ExecuteReader();
+            while (dataReader.Read())
+            {
+                LijstTraject traject = new LijstTraject();
+                foreach (var (value, i) in traject.GetType().GetProperties().Select((value, i) => (value, i)))
                 {
-                    traject.StartDatum = dataReader.GetDateTime(2);
-                }
-                if (!dataReader.IsDBNull(dataReader.GetOrdinal("WerkEind")))
-                {
-                    traject.EindDatum = dataReader.GetDateTime(3);
-                }
-                if (!dataReader.IsDBNull(dataReader.GetOrdinal("Uitvoerder")))
-                {
-                    traject.Uitvoerder = dataReader.GetInt32(4);
-                }
-                if (!dataReader.IsDBNull(dataReader.GetOrdinal("Werkvoorbereider")))
-                {
-                    traject.WerkVoorbereider = dataReader.GetInt32(5);
-                }
-                if (!dataReader.IsDBNull(dataReader.GetOrdinal("OpnemenWPI")))
-                {
-                    traject.Wpi = dataReader.GetBoolean(6);
+                    if (!dataReader.IsDBNull(dataReader.GetName(i)))
+                    {
+                        value.SetValue(traject, dataReader.GetValue(i));
+                    }
                 }
                 trajecten.Add(traject);
             }
