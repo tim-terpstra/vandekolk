@@ -33,7 +33,7 @@ namespace kis20.Business
             if (users.Count == 0) return null;
             //hier moet ook nog error handeling bijv als users langer is dan 1 dan moet de gebruiker door woorden gestuurd naar een error pagina
             return users[0];
-    }
+        }
         public List<LijstProject> getProjectenlijst()
         {
             var projecten = new List<LijstProject>();
@@ -87,6 +87,55 @@ namespace kis20.Business
             //hier moet ook nog error handeling bijv als users langer is dan 1 dan moet de gebruiker door woorden gestuurd naar een error pagina
             return trajecten;
 
+        }
+        public List<Personeel> getCalculator()
+        {
+            var users = new List<Personeel>();
+            cnn = new SqlConnection(ConnectionString);
+            cnn.Open();
+            sql = $"select Distinct Voornaam, Tussenvoegsel, Achternaam from Personeel inner join Project as p on p.Calculator = Personeel.Id";
+            command = new SqlCommand(sql, cnn);
+            dataReader = command.ExecuteReader();
+            while (dataReader.Read())
+            {
+                Personeel user = new Personeel();
+                foreach (var (value, i) in user.GetType().GetProperties().Select((value, i) => (value, i)))
+                {
+                    if (!dataReader.IsDBNull(dataReader.GetName(i)))
+                    {
+                        value.SetValue(user, dataReader.GetValue(i));
+                    }
+                }
+                users.Add(user);
+            }
+            if (users.Count == 0) return null;
+            //hier moet ook nog error handeling bijv als users langer is dan 1 dan moet de gebruiker door woorden gestuurd naar een error pagina
+            return users;
+
+        }
+        public void saveTraject(string naam, string plaats, string calc)
+        {
+            SqlConnection connection = new SqlConnection(ConnectionString);
+            string query = "INSERT INTO Project (AanvraagDatum,Calculator,ProjectNaam,ProjectPlaats,AanbiedingRetour,DatumCalculatieGereed,CalculatieGereed,ProjectStatus) VALUES (@AanvraagDatum,@Calculator,@ProjectNaam,@ProjectPlaats,@AanbiedingRetour,@DatumCalculatieGereed,@CalculatieGereed,@ProjectStatus)";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@AanvraagDatum", DateTime.Now);
+            command.Parameters.AddWithValue("@Calculator", 0);
+            command.Parameters.AddWithValue("@ProjectNaam", naam);
+            command.Parameters.AddWithValue("@ProjectPlaats", plaats);
+            command.Parameters.AddWithValue("@AanbiedingRetour", DateTime.Now);
+            command.Parameters.AddWithValue("@DatumCalculatieGereed", DateTime.Now);
+            command.Parameters.AddWithValue("@CalculatieGereed", 0);
+            command.Parameters.AddWithValue("@ProjectStatus", 2);
+
+            connection.Open();
+            int result = command.ExecuteNonQuery();
+
+            // Check Error
+            if (result < 0)
+                throw new Exception("A bunch of nothing got added to the SQL database");
+            
         }
     }
 }

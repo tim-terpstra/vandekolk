@@ -14,11 +14,13 @@ namespace kis20.Pages
     {
         private readonly ILogger<TrajectenModel> _logger;
         public List<LijstTraject> trajecten;
+        public List<Personeel> personeel;
 
         public TrajectenModel(ILogger<TrajectenModel> logger)
         {
             _logger = logger;
             trajecten = new Database().getTrajectenlijst();
+            personeel = new Database().getCalculator();
         }
 
         public IActionResult OnGet()
@@ -31,8 +33,13 @@ namespace kis20.Pages
             }
             return null;
         }
-        public void OnPost()
+        public IActionResult OnPost()
         {
+            string naam = Request.Form["naam"];
+            string plaats = Request.Form["plaats"];
+            string calc = Request.Form["calc"];
+            new Database().saveTraject(naam, plaats, calc);
+            return null;
         }
     }
 }
