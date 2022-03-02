@@ -5,77 +5,15 @@
     ViewData["Title"] = "trajecten";
     Layout = "";
 }
-<style>
-    body {
-        margin: 0;
-    }
-
-    .header {
-        background-color: rgb(0, 82, 69);
-        padding: 20px;
-        font-size: 35px;
-        color: white;
-        border-bottom: solid white;
-    }
-
-    div a {
-        color: white;
-        float: right;
-    }
-
-    table {
-        background: #f5f5f5;
-        border-collapse: separate;
-        font-size: 12px;
-        line-height: 24px;
-        margin: 1%;
-        text-align: left;
-        width: 95%;
-    }
-
-    th {
-        background: rgb(0, 82, 69);
-        color: #fff;
-        font-weight: bold;
-        padding: 10px 15px;
-    }
-
-    td {
-        padding: 10px 15px;
-    }
-
-    table, th, td {
-        border: 1px solid #c1c1c1;
-        border-collapse: collapse;
-    }
-
-    tbody {
-        overflow-y: scroll;
-        overflow-x: hidden;
-        height: 500px;
-        display: block;
-    }
-
-    thead {
-        display: table;
-        width: calc(100% - 17px);
-        table-layout: fixed;
-    }
-
-    tbody tr {
-        table-layout: fixed;
-        display: table;
-        width: 100%;
-    }
-</style>
 <head>
     <link rel="stylesheet" href="/css/site.css" type="text/css" />
+    <link rel="stylesheet" href="/css/projectenlijst.css" type="text/css" />
 </head>
 <body>
     <div class="headers">
         <div class="header">
             Trajectenlijst
-            <a href="/">X</a>
+            <div class="closehome">&times;</div>
         </div>
         <div class="header">
             <label for="status">Status:</label>
@@ -87,8 +25,7 @@
             </select>
         </div>
         <div class="header">
-            <button id="add">Traject aanmaken</button>
-            <button id="ask">Offerte aanvragen</button>
+            <button id="add">Traject aanvragen</button>
         </div>
     </div>
     <div>
@@ -112,22 +49,93 @@
             <tbody>
                 @foreach (var traject in Model.trajecten.Where(x => x.Status == "In calculatie").ToList())
                 {
-                <tr>
-                    <td>@traject.ProjectNummer</td>
-                    <td>@traject.CalculatieNummer</td>
-                    <td>@traject.ProjectNaam</td>
-                    <td>@traject.WerkAdres</td>
-                    <td>@traject.Opdrachtgever</td>
-                    <td>@traject.Soort</td>
-                    <td>@traject.AanvraagDatum</td>
-                    <td>@traject.AanbodDatum</td>
-                    <td>@traject.GereedDatum</td>
-                    <td>@traject.Calculator</td>
-                    <td>@traject.Status</td>
-                    <td>@traject.Gereed</td>
-                </tr>
+                    <tr>
+                        <td>@traject.ProjectNummer</td>
+                        <td>@traject.CalculatieNummer</td>
+                        <td>@traject.ProjectNaam</td>
+                        <td>@traject.WerkAdres</td>
+                        <td>@traject.Opdrachtgever</td>
+                        <td>@traject.Soort</td>
+                        <td>@traject.AanvraagDatum</td>
+                        <td>@traject.AanbodDatum</td>
+                        <td>@traject.GereedDatum</td>
+                        <td>@traject.Calculator</td>
+                        <td>@traject.Status</td>
+                        <td>@traject.Gereed</td>
+                    </tr>
                 }
             </tbody>
         </table>
     </div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="close">&times;</div>
+            <p>Traject toevoegen</p>
+            <form method="post">
+                <div class="group">
+                    <label for="naam" class="label">Projectnaam</label>
+                    <input id="naam" name="naam" type="text" class="input">
+                </div>
+                <div class="group">
+                    <label for="plaats" class="label">Projectplaats</label>
+                    <input id="plaats" name="plaats" type="text" class="input">
+                </div>
+                <div class="group">
+                    <label for="calc" class="label">Calculator</label>
+                    <select id="calc" name="calc">
+                        @foreach (var personeel in Model.personeel)
+                        {
+                            <option>@personeel.Voornaam @personeel.Tussenvoegsel @personeel.Achternaam</option>
+                        }
+                    </select>
+                </div>
+                <div class="group">
+                    <label for="aanvraagDatum" class="label">aanvraagDatum</label>
+                    <input id="aanvraagDatum" name="aanvraagDatum" type="date" class="input">
+                    <!--of moet dit wel een datetimenow zijn, omdat het  de datum van aanvragen is-->
+                </div>
+                <div class="group">
+                    <label for="aanbiedingRetour" class="label">aanbiedingRetour</label>
+                    <input id="aanbiedingRetour" name="aanbiedingRetour" type="date" class="input">
+                </div>
+                <div class="group">
+                    <label for="datumCalculatieGereed" class="label">datumCalculatieGereed</label>
+                    <input id="datumCalculatieGereed" name="datumCalculatieGereed" type="date" class="input">
+                </div>
+                <input type="submit" value="x">
+            </form>
+        </div>
+    </div>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("add");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        document.getElementsByClassName("closehome")[0].onclick = function () {
+            window.location.href = '/';
+        }
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
 </body>
