@@ -22,7 +22,10 @@ namespace kis20.Business
         {
             var users = new List<Gebruiker>();
             cnn = new SqlConnection(ConnectionString);
-            cnn.Open();
+            
+                cnn.Open();
+            
+            
             sql = $"Select * from Gebruiker where Inlognaam = '{naam}'";
             command = new SqlCommand(sql, cnn);
             dataReader = command.ExecuteReader();
@@ -32,6 +35,7 @@ namespace kis20.Business
             }
             if (users.Count == 0) return null;
             //hier moet ook nog error handeling bijv als users langer is dan 1 dan moet de gebruiker door woorden gestuurd naar een error pagina
+            //hier moet nog meer error handling in geval dat de db niet berijkbaar is, verstuur dan door naar een 503 pagina
             return users[0];
         }
         public List<LijstProject> getProjectenlijst()
@@ -113,7 +117,7 @@ namespace kis20.Business
             return users;
 
         }
-        public void saveTraject(string naam, string plaats, string calc)
+        public void saveTraject(string naam, string plaats, string calc, DateTime AanvraagDatum, DateTime AanbiedingRetour, DateTime DatumCalculatieGereed)//verander dit naar bool zodat je kan checken of het inserten ook goed gaat. 
         {
             SqlConnection connection = new SqlConnection(ConnectionString);
             string query = "INSERT INTO Project (AanvraagDatum,Calculator,ProjectNaam,ProjectPlaats,AanbiedingRetour,DatumCalculatieGereed,CalculatieGereed,ProjectStatus) VALUES (@AanvraagDatum,@Calculator,@ProjectNaam,@ProjectPlaats,@AanbiedingRetour,@DatumCalculatieGereed,@CalculatieGereed,@ProjectStatus)";
@@ -134,7 +138,7 @@ namespace kis20.Business
 
             // Check Error
             if (result < 0)
-                throw new Exception("A bunch of nothing got added to the SQL database");
+                throw new Exception("nothing got added to the SQL database");
             
         }
     }

@@ -38,7 +38,15 @@ namespace kis20.Pages
             string naam = Request.Form["naam"];
             string plaats = Request.Form["plaats"];
             string calc = Request.Form["calc"];
-            new Database().saveTraject(naam, plaats, calc);
+            string aanvraagDatumString = Request.Form["aanvraagDatum"];
+            string aanbiedingRetourString = Request.Form["aanbiedingRetour"];
+            string datumCalculatieGereedString = Request.Form["datumCalculatieGereed"];
+
+            DateTime aanvraagDatum = DateTime.Parse(aanvraagDatumString);
+            DateTime aanbiedingRetour = DateTime.Parse(aanbiedingRetourString);
+            DateTime datumCalculatieGereed = DateTime.Parse(datumCalculatieGereedString); 
+            
+            new Database().saveTraject(naam, plaats, calc, aanvraagDatum, aanbiedingRetour, datumCalculatieGereed);
             return null;
         }
     }
