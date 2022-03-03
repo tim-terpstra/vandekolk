@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using kis20.Business;
+using System.Data.SqlClient;
 
 namespace kis20.Pages
 {
@@ -19,10 +20,17 @@ namespace kis20.Pages
         public TrajectenModel(ILogger<TrajectenModel> logger)
         {
             _logger = logger;
-            trajecten = new Database().getTrajectenlijst();
-            personeel = new Database().getCalculator();
-        }
 
+            try
+            {
+                trajecten = new Database().getTrajectenlijst();
+                personeel = new Database().getCalculator();
+            }
+            catch (SqlException)
+            {
+                return;
+            }
+        }
         public IActionResult OnGet()
         {
             var user = HttpContext.Session.GetString("user");
@@ -38,15 +46,18 @@ namespace kis20.Pages
             string naam = Request.Form["naam"];
             string plaats = Request.Form["plaats"];
             string calc = Request.Form["calc"];
-            string aanvraagDatumString = Request.Form["aanvraagDatum"];
+
             string aanbiedingRetourString = Request.Form["aanbiedingRetour"];
             string datumCalculatieGereedString = Request.Form["datumCalculatieGereed"];
 
-            DateTime aanvraagDatum = DateTime.Parse(aanvraagDatumString);
             DateTime aanbiedingRetour = DateTime.Parse(aanbiedingRetourString);
             DateTime datumCalculatieGereed = DateTime.Parse(datumCalculatieGereedString); 
             
-            new Database().saveTraject(naam, plaats, calc, aanvraagDatum, aanbiedingRetour, datumCalculatieGereed);
+            var result = new Database().saveTraject(naam, plaats, calc, aanbiedingRetour, datumCalculatieGereed);
+            if (result < 0)
+            {
+                return Redirect("/Error");
+            }
             return null;
         }
     }

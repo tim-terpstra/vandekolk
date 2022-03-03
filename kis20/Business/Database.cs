@@ -113,11 +113,10 @@ namespace kis20.Business
                 users.Add(user);
             }
             if (users.Count == 0) return null;
-            //hier moet ook nog error handeling bijv als users langer is dan 1 dan moet de gebruiker door woorden gestuurd naar een error pagina
             return users;
 
         }
-        public void saveTraject(string naam, string plaats, string calc, DateTime AanvraagDatum, DateTime AanbiedingRetour, DateTime DatumCalculatieGereed)//verander dit naar bool zodat je kan checken of het inserten ook goed gaat. 
+        public int saveTraject(string naam, string plaats, string calc, DateTime AanbiedingRetour, DateTime DatumCalculatieGereed)//verander dit naar bool zodat je kan checken of het inserten ook goed gaat. 
         {
             SqlConnection connection = new SqlConnection(ConnectionString);
             string query = "INSERT INTO Project (AanvraagDatum,Calculator,ProjectNaam,ProjectPlaats,AanbiedingRetour,DatumCalculatieGereed,CalculatieGereed,ProjectStatus) VALUES (@AanvraagDatum,@Calculator,@ProjectNaam,@ProjectPlaats,@AanbiedingRetour,@DatumCalculatieGereed,@CalculatieGereed,@ProjectStatus)";
@@ -136,9 +135,8 @@ namespace kis20.Business
             connection.Open();
             int result = command.ExecuteNonQuery();
 
-            // Check Error
-            if (result < 0)
-                throw new Exception("nothing got added to the SQL database");
+            // geef het resultaat terug zodat er error handling gedaan kan worden bij het aanroepen van de method
+            return result;
             
         }
     }
