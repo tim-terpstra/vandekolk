@@ -5,9 +5,9 @@
     ViewData["Title"] = "trajecten";
     Layout = "";
 
-    if(Model.trajecten == null && Model.personeel == null)
+    if(Model.err < 0)
     {
-        Response.Redirect("~/Error");
+        Response.Redirect("~/503");
     }
 }
 <head>

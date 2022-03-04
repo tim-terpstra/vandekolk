@@ -49,7 +49,7 @@ namespace kis20.Pages
             }
             catch (SqlException)
             {
-                return Redirect("/Error");
+                return Redirect("/503");
             }
             
             

@@ -16,6 +16,7 @@ namespace kis20.Pages
         private readonly ILogger<TrajectenModel> _logger;
         public List<LijstTraject> trajecten;
         public List<Personeel> personeel;
+        public int err;
 
         public TrajectenModel(ILogger<TrajectenModel> logger)
         {
@@ -25,9 +26,11 @@ namespace kis20.Pages
             {
                 trajecten = new Database().getTrajectenlijst();
                 personeel = new Database().getCalculator();
+                err = 1;
             }
             catch (SqlException)
             {
+                err = -1;
                 return;
             }
         }
@@ -56,7 +59,7 @@ namespace kis20.Pages
             var result = new Database().saveTraject(naam, plaats, calc, aanbiedingRetour, datumCalculatieGereed);
             if (result < 0)
             {
-                return Redirect("/Error");
+                return Redirect("/503");
             }
             return null;
         }
