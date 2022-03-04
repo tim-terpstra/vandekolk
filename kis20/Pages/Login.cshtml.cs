@@ -56,7 +56,10 @@ namespace kis20.Pages
             if ((user != null && user.Wachtwoord == pswd) || (username == "robbintim" && pswd == "Oplader7#"))
             {
                 HttpContext.Session.SetString("user", username);
-                //hier later laten redirecten naar GOTO in cookies
+                if(HttpContext.Session.GetString("goto") != null)
+                {
+                    return Redirect(HttpContext.Session.GetString("goto"));
+                }
                 return Redirect("/");
 
             }

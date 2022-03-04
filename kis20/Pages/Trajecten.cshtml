@@ -4,11 +4,6 @@
     /* als je een een template wilt gebruiken voor alle paginas kan dat hier en dan is testlayout de algemene layout*/
     ViewData["Title"] = "trajecten";
     Layout = "";
-
-    if(Model.err < 0)
-    {
-        Response.Redirect("~/503");
-    }
 }
 <head>
     <link rel="stylesheet" href="/css/site.css" type="text/css" />

@@ -23,20 +23,24 @@ namespace kis20.Pages
             try
             {
                 projecten = new Database().getProjectenlijst();
-                err = 1;
+                
             }
             catch (SqlException)
             {
                 err = -1;
                 return;
             }
+            err = 1;
         }
 
         public IActionResult OnGet()
         {
+            if(err < 0) return Redirect("/503");
+
             var user = HttpContext.Session.GetString("user");
             if (string.IsNullOrEmpty(user))
             {
+                HttpContext.Session.SetString("goto", "/Projecten");
                 return Redirect("/Login");
                 //moet dan ook nog in een cookie een goto worden meeverstuurd in dit geval goto projecten.
             }
