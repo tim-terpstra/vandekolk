@@ -4,6 +4,11 @@
     /* als je een een template wilt gebruiken voor alle paginas kan dat hier en dan is testlayout de algemene layout*/
     ViewData["Title"] = "trajecten";
     Layout = "";
+
+    if(Model.err < 0)
+    {
+        Response.Redirect("~/503");
+    }
 }
 <head>
     <link rel="stylesheet" href="/css/site.css" type="text/css" />
@@ -25,7 +30,8 @@
             </select>
         </div>
         <div class="header">
-            <button id="add">Traject aanvragen</button>
+            <button id="add">Traject aanmaken</button>
+            <button id="offerte">Offerte aanvragen</button>
         </div>
     </div>
     <div>
@@ -47,7 +53,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var traject in Model.trajecten.Where(x => x.Status == "In calculatie").ToList())
+                @foreach (var traject in Model.trajecten == null ? new List<Business.LijstTraject> { } : Model.trajecten.Where(x => x.Status == "In calculatie").ToList())
                 {
                     <tr>
                         <td>@traject.ProjectNummer</td>
@@ -83,7 +89,7 @@
                 <div class="group">
                     <label for="calc" class="label">Calculator</label>
                     <select id="calc" name="calc" required>
-                        @foreach (var personeel in Model.personeel)
+                        @foreach (var personeel in Model.personeel == null ? new List<Business.Personeel> { } : Model.personeel)
                         {
                             <option>@personeel.Voornaam @personeel.Tussenvoegsel @personeel.Achternaam</option>
                         }
@@ -97,38 +103,62 @@
                     <label for="datumCalculatieGereed" class="label">datumCalculatieGereed</label>
                     <input id="datumCalculatieGereed" name="datumCalculatieGereed" type="date" class="input" required>
                 </div>
-                <input type="submit" value="x">
+                <input type="submit" value="toevoegen">
+            </form>
+        </div>
+    </div>
+    <div id="myModal2" class="modal">
+        <div class="modal-content">
+            <div class="close">&times;</div>
+            <p>Offerte aanvragen</p>
+            <form>
+                <div>
+                    <label for="datum-ingediend" class="label">Datum ingediend</label>
+                    <input id="datum-ingediend" name="datum-ingediend" type="text" class="input" value="@DateTime.Now" disabled>
+                    <label for="indiener" class="label">Indiener</label>
+                    <select id="indiener" name="indiener" disabled>
+                        @foreach (var personeel in Model.personeel == null ? new List<Business.Personeel> { } : Model.personeel)
+                        {
+                            <option>@personeel.Voornaam @personeel.Tussenvoegsel @personeel.Achternaam</option>
+                        }
+                    </select>
+                </div>
             </form>
         </div>
     </div>
     <script>
         // Get the modal
         var modal = document.getElementById("myModal");
+        var modal2 = document.getElementById("myModal2");
 
         // Get the button that opens the modal
-        var btn = document.getElementById("add");
-
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+        var add = document.getElementById("add");
+        var offerte = document.getElementById("offerte");
 
         // When the user clicks the button, open the modal
-        btn.onclick = function () {
+        add.onclick = function () {
             modal.style.display = "block";
+        }
+        offerte.onclick = function () {
+            modal2.style.display = "block";
         }
 
         // When the user clicks on <span> (x), close the modal
         document.getElementsByClassName("closehome")[0].onclick = function () {
             window.location.href = '/';
         }
-
-        span.onclick = function () {
+        document.getElementsByClassName("close")[0].onclick = function () {
             modal.style.display = "none";
+        }
+        document.getElementsByClassName("close")[1].onclick = function () {
+            modal2.style.display = "none";
         }
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
-            if (event.target == modal) {
+            if (event.target == modal || event.target == modal2) {
                 modal.style.display = "none";
+                modal2.style.display = "none";
             }
         }
     </script>
