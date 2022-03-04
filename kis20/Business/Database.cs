@@ -22,9 +22,15 @@ namespace kis20.Business
         {
             var users = new List<Gebruiker>();
             cnn = new SqlConnection(ConnectionString);
-            
+            try
+            {
                 cnn.Open();
-            
+            }
+            catch 
+            { 
+                return null; 
+                // voor het testen, dit moet een error returnen
+            }
             
             sql = $"Select * from Gebruiker where Inlognaam = '{naam}'";
             command = new SqlCommand(sql, cnn);

@@ -23,14 +23,14 @@
         <div class="header">
             <label for="status">Status:</label>
             <select name="status" id="status">
-                <option value="Aanvraag">Aanvraag</option>
+                <option value="Aanvraag" disabled>Aanvraag</option>
                 <option value="In calculatie" selected="selected">In calculatie</option>
-                <option value="In uitvoering">In uitvoering</option>
-                <option value="Gereed">Gereed</option>
+                <option value="In uitvoering" disabled>In uitvoering</option>
+                <option value="Gereed" disabled>Gereed</option>
             </select>
         </div>
         <div class="header">
-            <button id="add">Traject aanvragen</button>
+            <button id="add">Traject aanmaken</button>
         </div>
     </div>
     <div>
@@ -52,7 +52,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var traject in Model.trajecten.Where(x => x.Status == "In calculatie").ToList())
+                @foreach (var traject in Model.trajecten == null ? new List<Business.LijstTraject> { } : Model.trajecten.Where(x => x.Status == "In calculatie").ToList())
                 {
                     <tr>
                         <td>@traject.ProjectNummer</td>
@@ -88,7 +88,7 @@
                 <div class="group">
                     <label for="calc" class="label">Calculator</label>
                     <select id="calc" name="calc" required>
-                        @foreach (var personeel in Model.personeel)
+                        @foreach (var personeel in Model.personeel == null ? new List<Business.Personeel> { } : Model.personeel)
                         {
                             <option>@personeel.Voornaam @personeel.Tussenvoegsel @personeel.Achternaam</option>
                         }

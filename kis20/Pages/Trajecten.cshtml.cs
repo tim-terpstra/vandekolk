@@ -30,8 +30,9 @@ namespace kis20.Pages
             }
             catch (SqlException)
             {
-                err = -1;
-                return;
+                //err = -1;
+                //return; 
+                // voor het testen in commentaar gezet
             }
         }
         public IActionResult OnGet()
