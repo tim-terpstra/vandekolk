@@ -79,15 +79,15 @@
             <form method="post">
                 <div class="group">
                     <label for="naam" class="label">Projectnaam</label>
-                    <input id="naam" name="naam" type="text" class="input">
+                    <input id="naam" name="naam" type="text" class="input" required>
                 </div>
                 <div class="group">
                     <label for="plaats" class="label">Projectplaats</label>
-                    <input id="plaats" name="plaats" type="text" class="input">
+                    <input id="plaats" name="plaats" type="text" class="input" required>
                 </div>
                 <div class="group">
                     <label for="calc" class="label">Calculator</label>
-                    <select id="calc" name="calc">
+                    <select id="calc" name="calc" required>
                         @foreach (var personeel in Model.personeel)
                         {
                             <option>@personeel.Voornaam @personeel.Tussenvoegsel @personeel.Achternaam</option>
@@ -95,17 +95,12 @@
                     </select>
                 </div>
                 <div class="group">
-                    <label for="aanvraagDatum" class="label">aanvraagDatum</label>
-                    <input id="aanvraagDatum" name="aanvraagDatum" type="date" class="input">
-                    <!--of moet dit wel een datetimenow zijn, omdat het  de datum van aanvragen is-->
-                </div>
-                <div class="group">
                     <label for="aanbiedingRetour" class="label">aanbiedingRetour</label>
-                    <input id="aanbiedingRetour" name="aanbiedingRetour" type="date" class="input">
+                    <input id="aanbiedingRetour" name="aanbiedingRetour" type="date" class="input" required>
                 </div>
                 <div class="group">
                     <label for="datumCalculatieGereed" class="label">datumCalculatieGereed</label>
-                    <input id="datumCalculatieGereed" name="datumCalculatieGereed" type="date" class="input">
+                    <input id="datumCalculatieGereed" name="datumCalculatieGereed" type="date" class="input" required>
                 </div>
                 <input type="submit" value="toevoegen">
             </form>
