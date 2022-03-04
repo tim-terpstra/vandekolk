@@ -4,6 +4,11 @@
     /* als je een een template wilt gebruiken voor alle paginas kan dat hier en dan is testlayout de algemene layout*/
     ViewData["Title"] = "projecten";
     Layout = "";
+    if (Model.err < 0)
+    {
+        Response.Redirect("~/Error");
+    }
+
 }
 <style>
     body{

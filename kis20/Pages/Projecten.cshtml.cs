@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using kis20.Business;
+using System.Data.SqlClient;
 
 namespace kis20.Pages
 {
@@ -14,11 +15,21 @@ namespace kis20.Pages
     {
         private readonly ILogger<ProjectenModel> _logger;
         public List<LijstProject> projecten;
+        public int err;
 
         public ProjectenModel(ILogger<ProjectenModel> logger)
         {
             _logger = logger;
-            projecten = new Database().getProjectenlijst();
+            try
+            {
+                projecten = new Database().getProjectenlijst();
+                err = 1;
+            }
+            catch (SqlException)
+            {
+                err = -1;
+                return;
+            }
         }
 
         public IActionResult OnGet()

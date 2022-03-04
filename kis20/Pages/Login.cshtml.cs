@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Data.SqlClient;
 using Microsoft.AspNetCore.Http;
 using kis20.Business;
 
@@ -41,7 +42,17 @@ namespace kis20.Pages
             pswd = pswd.Trim();
             check = check.Trim();
             var db = new Database();
-            Gebruiker user = db.getuser(username);
+            Gebruiker user = null;
+            try
+            {
+                user = db.getuser(username);
+            }
+            catch (SqlException)
+            {
+                return Redirect("/503");
+            }
+            
+            
             if (user != null && user.Wachtwoord == pswd)
             {
                 HttpContext.Session.SetString("user", username);
