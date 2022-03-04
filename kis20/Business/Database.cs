@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,9 +22,15 @@ namespace kis20.Business
         {
             var users = new List<Gebruiker>();
             cnn = new SqlConnection(ConnectionString);
-            
+            try
+            {
                 cnn.Open();
-            
+            }
+            catch 
+            { 
+                return null; 
+                // voor het testen, dit moet een error returnen
+            }
             
             sql = $"Select * from Gebruiker where Inlognaam = '{naam}'";
             command = new SqlCommand(sql, cnn);
@@ -113,11 +119,10 @@ namespace kis20.Business
                 users.Add(user);
             }
             if (users.Count == 0) return null;
-            //hier moet ook nog error handeling bijv als users langer is dan 1 dan moet de gebruiker door woorden gestuurd naar een error pagina
             return users;
 
         }
-        public void saveTraject(string naam, string plaats, string calc, DateTime AanbiedingRetour, DateTime DatumCalculatieGereed)//verander dit naar bool zodat je kan checken of het inserten ook goed gaat. 
+        public int saveTraject(string naam, string plaats, string calc, DateTime AanbiedingRetour, DateTime DatumCalculatieGereed)//verander dit naar bool zodat je kan checken of het inserten ook goed gaat. 
         {
             SqlConnection connection = new SqlConnection(ConnectionString);
             string query = "INSERT INTO Project (AanvraagDatum,Calculator,ProjectNaam,ProjectPlaats,AanbiedingRetour,DatumCalculatieGereed,CalculatieGereed,ProjectStatus) VALUES (@AanvraagDatum,@Calculator,@ProjectNaam,@ProjectPlaats,@AanbiedingRetour,@DatumCalculatieGereed,@CalculatieGereed,@ProjectStatus)";
@@ -128,17 +133,16 @@ namespace kis20.Business
             command.Parameters.AddWithValue("@Calculator", 0);
             command.Parameters.AddWithValue("@ProjectNaam", naam);
             command.Parameters.AddWithValue("@ProjectPlaats", plaats);
-            command.Parameters.AddWithValue("@AanbiedingRetour", AanbiedingRetour);
-            command.Parameters.AddWithValue("@DatumCalculatieGereed", DatumCalculatieGereed);
+            command.Parameters.AddWithValue("@AanbiedingRetour", DateTime.Now);
+            command.Parameters.AddWithValue("@DatumCalculatieGereed", DateTime.Now);
             command.Parameters.AddWithValue("@CalculatieGereed", 0);
             command.Parameters.AddWithValue("@ProjectStatus", 2);
 
             connection.Open();
             int result = command.ExecuteNonQuery();
 
-            // Check Error
-            if (result < 0)
-                throw new Exception("nothing got added to the SQL database");
+            // geef het resultaat terug zodat er error handling gedaan kan worden bij het aanroepen van de method
+            return result;
             
         }
     }
