@@ -30,18 +30,19 @@ namespace kis20.Pages
             }
             catch (SqlException)
             {
-                //err = -1;
-                //return; 
-                // voor het testen in commentaar gezet
+                err = -1;
+                return; 
             }
         }
         public IActionResult OnGet()
         {
+            if (err < 0) return Redirect("/503");
+
             var user = HttpContext.Session.GetString("user");
             if (string.IsNullOrEmpty(user))
             {
+                HttpContext.Session.SetString("goto", "/Trajecten");
                 return Redirect("/Login");
-                //moet dan ook nog in een cookie een goto worden meeverstuurd in dit geval goto projecten.
             }
             return null;
         }

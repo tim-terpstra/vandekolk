@@ -27,6 +27,7 @@ namespace kis20.Pages
             var user = HttpContext.Session.GetString("user");
             if (string.IsNullOrEmpty(user))
             {
+                HttpContext.Session.SetString("goto", "/Capplan");
                 return Redirect("/Login");
             }
             return null;
