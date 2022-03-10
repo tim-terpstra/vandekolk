@@ -31,7 +31,7 @@
         </div>
         <div class="header">
             <button id="add">Traject aanmaken</button>
-            <button id="offerte">Offerte aanvragen</button>
+            <button id="offerte" disabled>Offerte aanvragen</button>
         </div>
     </div>
     <div>
@@ -55,7 +55,7 @@
             <tbody>
                 @foreach (var traject in Model.trajecten == null ? new List<Business.LijstTraject> { } : Model.trajecten.Where(x => x.Status == "In calculatie").ToList())
                 {
-                    <tr>
+                    <tr onmouseover="this.style.backgroundColor = '#dcfac9';" onmouseout="this.style.backgroundColor = '#f5f5f5';">
                         <td>@traject.ProjectNummer</td>
                         <td>@traject.CalculatieNummer</td>
                         <td>@traject.ProjectNaam</td>
@@ -70,6 +70,8 @@
                         <td>@traject.Gereed</td>
                     </tr>
                 }
+                <tr onmouseover="this.style.backgroundColor = '#dcfac9';" onmouseout="this.style.backgroundColor = '#f5f5f5';"><td>a</td></tr>
+                <tr onmouseover="this.style.backgroundColor = '#dcfac9';" onmouseout="this.style.backgroundColor = '#f5f5f5';"><td>b</td></tr>
             </tbody>
         </table>
     </div>
@@ -96,11 +98,11 @@
                     </select>
                 </div>
                 <div class="group">
-                    <label for="aanbiedingRetour" class="label">aanbiedingRetour</label>
+                    <label for="aanbiedingRetour" class="label">Retour</label>
                     <input id="aanbiedingRetour" name="aanbiedingRetour" type="date" class="input" required>
                 </div>
                 <div class="group">
-                    <label for="datumCalculatieGereed" class="label">datumCalculatieGereed</label>
+                    <label for="datumCalculatieGereed" class="label">Gereed</label>
                     <input id="datumCalculatieGereed" name="datumCalculatieGereed" type="date" class="input" required>
                 </div>
                 <input type="submit" value="toevoegen">
@@ -113,29 +115,65 @@
             <p>Offerte aanvragen</p>
             <form>
                 <div>
-                    <label for="datum-ingediend" class="label">Datum ingediend</label>
+                    <label for="datum-ingediend" class="label">Ingediend</label>
                     <input id="datum-ingediend" name="datum-ingediend" type="text" class="input" value="@DateTime.Now" disabled>
                     <label for="indiener" class="label">Indiener</label>
-                    <select id="indiener" name="indiener" disabled>
+                    <select id="indiener" name="indiener">
                         @foreach (var personeel in Model.personeel == null ? new List<Business.Personeel> { } : Model.personeel)
                         {
                             <option>@personeel.Voornaam @personeel.Tussenvoegsel @personeel.Achternaam</option>
                         }
                     </select>
                 </div>
+                <hr />
+                <div>
+                    Soort opdrachtgever
+                    <label for="bedrijf" class="label">Bedrijf</label>
+                    <input id="bedrijf" name="soort" type="radio" class="input" value="Bedrijf">
+                    <label for="particulier" class="label">Particulier</label>
+                    <input id="particulier" name="soort" type="radio" class="input" value="Particulier" required>
+                </div>
+                <div>
+                    <label for="bedrijf" class="label">Bedrijf</label>
+                    <select id="bedrijf" name="bedrijf">
+                        @foreach (var bedrijf in Model.bedrijven == null ? new List<string> { } : Model.bedrijven)
+                        {
+                            <option>@bedrijf</option>
+                        }
+                    </select>
+                    <label for="contactpersoon" class="label">Contactpersoon</label>
+                    <select id="contactpersoon" name="contactpersoon">
+                        @foreach (var contactpersoon in Model.contactpersonen == null ? new List<string> { } : Model.contactpersonen)
+                        {
+                            <option>@contactpersoon</option>
+                        }
+                    </select>
+                    <label for="architect" class="label">Architect</label>
+                    <select id="architect" name="architect">
+                        @foreach (var architect in Model.architecten == null ? new List<string> { } : Model.architecten)
+                        {
+                            <option>@architect</option>
+                        }
+                    </select>
+                </div>
+                <hr />
+                <div>
+                    <label for="projectnaam" class="label">Projectnaam</label>
+                    <input id="projectnaam" name="projectnaam" type="text" class="input">
+                    <label for="werkadres" class="label">Werkadres</label>
+                    <input id="werkadres" name="werkadres" type="text" class="input">
+                </div>
+                <input type="submit" value="toevoegen">
             </form>
         </div>
     </div>
     <script>
-        // Get the modal
         var modal = document.getElementById("myModal");
         var modal2 = document.getElementById("myModal2");
 
-        // Get the button that opens the modal
         var add = document.getElementById("add");
         var offerte = document.getElementById("offerte");
 
-        // When the user clicks the button, open the modal
         add.onclick = function () {
             modal.style.display = "block";
         }
@@ -143,7 +181,6 @@
             modal2.style.display = "block";
         }
 
-        // When the user clicks on <span> (x), close the modal
         document.getElementsByClassName("closehome")[0].onclick = function () {
             window.location.href = '/';
         }
@@ -154,11 +191,19 @@
             modal2.style.display = "none";
         }
 
-        // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
             if (event.target == modal || event.target == modal2) {
                 modal.style.display = "none";
                 modal2.style.display = "none";
+            }
+        }
+
+        var rows = document.getElementsByTagName("tr");
+        for (let row of rows) {
+            row.onclick = function () {
+                console.log(1);
+                offerte.disabled = false;
+                document.getElementById("projectnaam").innerHTML = row;
             }
         }
     </script>
