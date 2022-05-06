@@ -28,9 +28,5 @@ namespace kis20.Pages
             }
             return null;
         }
-        public void OnYes()
-        {
-            Console.WriteLine("aaa");
-        }
     }
 }

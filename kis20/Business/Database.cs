@@ -16,7 +16,6 @@ namespace kis20.Business
         public string sql { get; set; } = "";
         public SqlCommand command { get; set; }
         public SqlDataReader dataReader { get; set; }
-        //hier nog dingen aan meegeven zoals iets van database gegevends
 
         public Gebruiker getuser(string naam)
         {
@@ -26,12 +25,11 @@ namespace kis20.Business
             {
                 cnn.Open();
             }
-            catch 
-            { 
-                return null; 
-                // voor het testen, dit moet een error returnen
+            catch (SqlException)
+            {
+                //return error
             }
-            
+
             sql = $"Select * from Gebruiker where Inlognaam = '{naam}'";
             command = new SqlCommand(sql, cnn);
             dataReader = command.ExecuteReader();
@@ -62,10 +60,6 @@ namespace kis20.Business
                         value.SetValue(project, dataReader.GetValue(i));
                     }
                 }
-                /*if (!dataReader.IsDBNull(dataReader.GetOrdinal("ProjectNummer")))
-                {
-                    project.ProjectNummer = dataReader.GetString(0);
-                }*/
                 projecten.Add(project);
             }
             if (projecten.Count == 0) return null;
@@ -122,7 +116,7 @@ namespace kis20.Business
             return users;
 
         }
-        public int saveTraject(string naam, string plaats, string calc, DateTime AanbiedingRetour, DateTime DatumCalculatieGereed)//verander dit naar bool zodat je kan checken of het inserten ook goed gaat. 
+        public int saveTraject(string naam, string plaats, string calc, DateTime AanbiedingRetour, DateTime DatumCalculatieGereed)// veranderen naar boolean zodat je kan checken of het inserten ook goed gaat. 
         {
             SqlConnection connection = new SqlConnection(ConnectionString);
             string query = "INSERT INTO Project (AanvraagDatum,Calculator,ProjectNaam,ProjectPlaats,AanbiedingRetour,DatumCalculatieGereed,CalculatieGereed,ProjectStatus) VALUES (@AanvraagDatum,@Calculator,@ProjectNaam,@ProjectPlaats,@AanbiedingRetour,@DatumCalculatieGereed,@CalculatieGereed,@ProjectStatus)";

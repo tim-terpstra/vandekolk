@@ -75,11 +75,11 @@ namespace kis20.Pages
             {
                 return Redirect("/503");
             }
-
             return null;
         }
         public IActionResult offerteAanvragen()
         {
+            //Formulier van offerte aanvraag modal verwerken
             return null;
         }
     }
