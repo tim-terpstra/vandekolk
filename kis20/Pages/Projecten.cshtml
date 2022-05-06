@@ -1,121 +1,72 @@
 ﻿@page
 @model ProjectenModel
 @{
-    /* als je een een template wilt gebruiken voor alle paginas kan dat hier en dan is testlayout de algemene layout*/
-    ViewData["Title"] = "projecten";
+    ViewData["Title"] = "Projecten";
     Layout = "";
+
+    if (Model.err < 0)
+    {
+        Response.Redirect("~/503");
+    }
 }
-<style>
-    body{
-        margin: 0;
-    }
-    .header {
-        background-color: rgb(0, 82, 69);
-        padding: 20px;
-        font-size: 35px;
-        color: white;
-        border-bottom: solid white;
-    }
-    div a{
-        color: white;
-        float: right;
-    }
-    table {
-        background: #f5f5f5;
-        border-collapse: separate;
-        font-size: 12px;
-        line-height: 24px;
-        margin: 1%;
-        text-align: left;
-        width: 95%;
-        
-    }
-    th {
-        background: rgb(0, 82, 69);
-        color: #fff;
-        font-weight: bold;
-        padding: 10px 15px;
-    }
-    td {
-        padding: 10px 15px;
-    }
-    table, th, td {
-        border: 1px solid #c1c1c1;
-        border-collapse: collapse;
-    }
-    tbody {
-        overflow-y: scroll;
-        overflow-x: hidden;
-        height: 500px;
-        display: block;
-    }
-
-    thead {
-        display: table;
-        width: calc(100% - 17px);
-        table-layout: fixed;
-    }
-
-    tbody tr {
-        table-layout: fixed;
-        display: table;
-        width: 100%;
-    }
-</style>
 <head>
     <link rel="stylesheet" href="/css/site.css" type="text/css" />
+    <link rel="stylesheet" href="/css/projectenlijst.css" type="text/css" />
 </head>
 <body>
-    <div>
+    <div class="headers">
         <div class="header">
             Projectenlijst
-            <a href="/">X</a>
+            <div class="closehome">&times;</div>
         </div>
         <div class="header">
             <label for="status">Status:</label>
             <select name="status" id="status">
-                <option value="Aanvraag">Aanvraag</option>
-                <option value="In calculatie">In calculatie</option>
+                <option value="Aanvraag" disabled>Aanvraag</option>
+                <option value="In calculatie" disabled>In calculatie</option>
                 <option value="In uitvoering" selected="selected">In uitvoering</option>
-                <option value="Gereed">Gereed</option>
+                <option value="Gereed" disabled>Gereed</option>
             </select>
         </div>
         <div class="header">
-            <button id="add">Project aanmaken</button>
-            <button id="ask">Offerte aanvragen</button>
+
         </div>
     </div>
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Projectnummer</th>
-                        <th>Project</th>
-                        <th>Adres</th>
-                        <th>Opdrachtgever</th>
-                        <th>Startdatum</th>
-                        <th>Einddatum</th>
-                        <th>Uitvoerder</th>
-                        <th>Werkvoorbereider</th>
-                        <th>WPI</th>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Projectnummer</th>
+                    <th>Project</th>
+                    <th>Adres</th>
+                    <th>Opdrachtgever</th>
+                    <th>Startdatum</th>
+                    <th>Einddatum</th>
+                    <th>Uitvoerder</th>
+                    <th>Werkvoorbereider</th>
+                    <th>WPI</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var project in Model.projecten.Where(x => x.Status == "In uitvoering").ToList())
+                {
+                    <tr class="tr" onmouseover="this.style.backgroundColor = '#dcfac9';" onmouseout="this.style.backgroundColor = '#f5f5f5';">
+                        <td>@project.ProjectNummer</td>
+                        <td>@project.ProjectNaam</td>
+                        <td>@project.WerkAdres</td>
+                        <td>@project.Opdrachtgever</td>
+                        <td>@project.StartDatum</td>
+                        <td>@project.EindDatum</td>
+                        <td>@project.Uitvoerder</td>
+                        <td>@project.WerkVoorbereider</td>
+                        <td>@project.Wpi</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var project in Model.projecten.Where(x => x.Status == "In uitvoering").ToList())
-                    {
-                        <tr>
-                            <td>@project.ProjectNummer</td>
-                            <td>@project.ProjectNaam</td>
-                            <td>@project.WerkAdres</td>
-                            <td>@project.Opdrachtgever</td>
-                            <td>@project.StartDatum</td>
-                            <td>@project.EindDatum</td>
-                            <td>@project.Uitvoerder</td>
-                            <td>@project.WerkVoorbereider</td>
-                            <td>@project.Wpi</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                }
+            </tbody>
+        </table>
+    </div>
+    <script>
+        document.getElementsByClassName("closehome")[0].onclick = function () {
+            window.location.href = '/';
+    </script>
 </body>

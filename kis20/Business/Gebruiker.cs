@@ -12,6 +12,8 @@ namespace kis20.Business
         public string Inlognaam { get;  }
         public int Persooneelsnummer { get;  }
         public string Wachtwoord { get; }
+
+        // rechten nog niet geïmplementeerd
         public bool Super { get; }
         public int AClear { get; }
         public int PClear { get; }

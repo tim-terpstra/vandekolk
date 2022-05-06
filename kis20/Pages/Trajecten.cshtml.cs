@@ -16,6 +16,9 @@ namespace kis20.Pages
         private readonly ILogger<TrajectenModel> _logger;
         public List<LijstTraject> trajecten;
         public List<Personeel> personeel;
+        public List<string> bedrijven;
+        public List<string> contactpersonen;
+        public List<string> architecten;
         public int err;
 
         public TrajectenModel(ILogger<TrajectenModel> logger)
@@ -26,6 +29,7 @@ namespace kis20.Pages
             {
                 trajecten = new Database().getTrajectenlijst();
                 personeel = new Database().getCalculator();
+
                 err = 1;
             }
             catch (SqlException)
@@ -48,6 +52,14 @@ namespace kis20.Pages
         }
         public IActionResult OnPost()
         {
+            if (!string.IsNullOrEmpty(Request.Form["calc"]))
+            {
+                return trajectAanmaken();
+            }
+            return offerteAanvragen();
+        }
+        public IActionResult trajectAanmaken()
+        {
             string naam = Request.Form["naam"];
             string plaats = Request.Form["plaats"];
             string calc = Request.Form["calc"];
@@ -56,14 +68,18 @@ namespace kis20.Pages
             string datumCalculatieGereedString = Request.Form["datumCalculatieGereed"];
 
             DateTime aanbiedingRetour = DateTime.Parse(aanbiedingRetourString);
-            DateTime datumCalculatieGereed = DateTime.Parse(datumCalculatieGereedString); 
-            
+            DateTime datumCalculatieGereed = DateTime.Parse(datumCalculatieGereedString);
+
             var result = new Database().saveTraject(naam, plaats, calc, aanbiedingRetour, datumCalculatieGereed);
             if (result < 0)
             {
                 return Redirect("/503");
             }
-
+            return null;
+        }
+        public IActionResult offerteAanvragen()
+        {
+            //Formulier van offerte aanvraag modal verwerken
             return null;
         }
     }

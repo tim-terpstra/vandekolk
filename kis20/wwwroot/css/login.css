@@ -1,0 +1,155 @@
+﻿body {
+    margin: 0;
+    color: #ffffff;
+    background: rgb(255, 255, 255);
+    font-weight: 600;
+    font-size: 18px;
+}
+
+*, :after, :before {
+    box-sizing: border-box
+}
+
+.clearfix:after, .clearfix:before {
+    content: '';
+    display: table
+}
+
+.clearfix:after {
+    clear: both;
+    display: block
+}
+
+a {
+    color: inherit;
+    text-decoration: none
+}
+
+.login-html {
+    margin: auto;
+    margin-top: 90px;
+    max-width: 600px;
+    min-height: 600px;
+    position: relative;
+    box-shadow: 0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+    padding: 70px 70px 50px 70px;
+    background: rgb(0, 82, 69);
+}
+
+    .login-html .tab,
+    .login-html .group .label,
+    .login-html .group .button {
+        text-transform: uppercase;
+    }
+
+    .login-html .tab {
+        font-size: 22px;
+        margin-right: 15px;
+        padding-bottom: 5px;
+        margin: 0 0 50px 0;
+        display: inline-block;
+        border-bottom: 2px solid transparent;
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.26);
+    }
+
+    .login-html .group {
+        margin-bottom: 15px;
+    }
+
+        .login-html .group .label,
+        .login-html .group .input,
+        .login-html .group .button {
+            width: 100%;
+            color: #fff;
+            display: block;
+        }
+
+        .login-html .group .input,
+        .login-html .group .button {
+            padding: 15px 20px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.26);
+        }
+
+        .login-html .group .input {
+            border: none;
+        }
+
+        .login-html .group input[data-type="password"] {
+            -webkit-text-security: circle;
+        }
+
+        .login-html .group .label {
+            color: rgb(255, 255, 255);
+            font-size: 12px;
+        }
+
+        .login-html .group .button {
+            background-color: rgb(255, 255, 255);
+            color: black;
+            font-weight: bold;
+            font-size: large;
+        }
+
+        .login-html .group .check {
+            display: none;
+        }
+
+        .login-html .group label .icon {
+            width: 15px;
+            height: 15px;
+            border-radius: 2px;
+            position: relative;
+            display: inline-block;
+            background: rgb(255, 255, 255);
+        }
+
+            .login-html .group label .icon:before,
+            .login-html .group label .icon:after {
+                content: '';
+                width: 10px;
+                height: 2px;
+                background: #fff;
+                position: absolute;
+                transition: all .2s ease-in-out 0s;
+            }
+
+            .login-html .group label .icon:before {
+                left: 3px;
+                width: 5px;
+                bottom: 6px;
+                transform: scale(0) rotate(0);
+            }
+
+            .login-html .group label .icon:after {
+                top: 6px;
+                right: 0;
+                transform: scale(0) rotate(0);
+            }
+
+        .login-html .group .check:checked + label {
+            color: #fff;
+        }
+
+            .login-html .group .check:checked + label .icon {
+                background: #1161ee;
+            }
+
+                .login-html .group .check:checked + label .icon:before {
+                    transform: scale(1) rotate(45deg);
+                }
+
+                .login-html .group .check:checked + label .icon:after {
+                    transform: scale(1) rotate(-45deg);
+                }
+
+.hr {
+    height: 2px;
+    margin: 60px 0 50px 0;
+    background: rgb(255, 255, 255);
+}
+
+.foot-lnk {
+    text-align: center;
+}

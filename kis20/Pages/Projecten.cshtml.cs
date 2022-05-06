@@ -46,8 +46,5 @@ namespace kis20.Pages
             }
             return null;
         }
-        public void OnYes()
-        {
-        }
     }
 }
