@@ -11,7 +11,7 @@ namespace kis20.Business
 {
     public class Database
     {
-        public string ConnectionString { get; } = @"Data Source=SQL2019;Initial Catalog=kis21;User ID=robbintim;Password=Oplader7#";
+        public string ConnectionString { get; } = @"Data Source=SQL2019;Initial Catalog=kis21;User ID=;Password=";//hier moeten de inlog gegevens van de database komen 
         public SqlConnection cnn { get; set; }
         public string sql { get; set; } = "";
         public SqlCommand command { get; set; }
